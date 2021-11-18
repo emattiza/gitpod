@@ -19,7 +19,7 @@ func useMinio(context *RenderContext) bool {
 	if pointer.BoolDeref(context.Config.ObjectStorage.InCluster, false) {
 		return true
 	}
-	if context.Config.ObjectStorage.Azure != nil {
+	if context.Config.ObjectStorage.Azure != nil || context.Config.ObjectStorage.S3 != nil {
 		return true
 	}
 	return false

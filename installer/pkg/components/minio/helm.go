@@ -10,6 +10,7 @@ import (
 	"github.com/gitpod-io/gitpod/installer/pkg/common"
 	"github.com/gitpod-io/gitpod/installer/pkg/components/minio/azure"
 	"github.com/gitpod-io/gitpod/installer/pkg/components/minio/incluster"
+	"github.com/gitpod-io/gitpod/installer/pkg/components/minio/s3"
 	"k8s.io/utils/pointer"
 )
 
@@ -20,6 +21,9 @@ var Helm = common.CompositeHelmFunc(
 		}
 		if cfg.Config.ObjectStorage.Azure != nil {
 			return azure.Helm(ServiceAPIPort, ServiceConsolePort)(cfg)
+		}
+		if cfg.Config.ObjectStorage.S3 != nil {
+			return s3.Helm(ServiceAPIPort, ServiceConsolePort)(cfg)
 		}
 
 		return nil, nil
