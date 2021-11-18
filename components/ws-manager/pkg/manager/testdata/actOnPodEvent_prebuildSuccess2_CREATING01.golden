@@ -1,3 +1,12 @@
 {
-    "actions": null
+    "actions": [
+        {
+            "Func": "modifyFinalizer",
+            "Params": {
+                "add": true,
+                "finalizer": "gitpod.io/finalizer",
+                "workspaceID": "8e0bbcdf-a926-4670-8c40-b718f035b2ae"
+            }
+        }
+    ]
 }

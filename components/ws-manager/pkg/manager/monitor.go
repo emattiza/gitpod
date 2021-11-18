@@ -317,6 +317,10 @@ func actOnPodEvent(ctx context.Context, m actingManager, status *api.WorkspaceSt
 				}
 			}
 		}()
+		err := m.modifyFinalizer(ctx, workspaceID, gitpodFinalizerName, true)
+		if err != nil {
+			return xerrors.Errorf("cannot add gitpod finalizer: %w", err)
+		}
 	}
 
 	if status.Phase == api.WorkspacePhase_INITIALIZING {
