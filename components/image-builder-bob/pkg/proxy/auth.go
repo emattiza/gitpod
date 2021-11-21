@@ -36,6 +36,13 @@ func (a authorizerImpl) Authorize(host string) (user, pass string, err error) {
 	}
 
 	user, pass = res.Username, res.Password
+
+	log.WithFields(logrus.Fields{
+		"user": user,
+		"pass": pass,
+		"auth": res.Auth,
+	}).Info("sje 1")
+
 	if res.Auth != "" {
 		var auth []byte
 		auth, err = base64.StdEncoding.DecodeString(res.Auth)
@@ -49,6 +56,13 @@ func (a authorizerImpl) Authorize(host string) (user, pass string, err error) {
 
 		user = segs[0]
 		pass = strings.Join(segs[1:], ":")
+
+		log.WithFields(logrus.Fields{
+			"auth": auth,
+			"segs": segs,
+			"user": user,
+			"pass": pass,
+		}).Info("sje 2")
 	}
 
 	return
