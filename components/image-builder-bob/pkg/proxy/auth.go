@@ -27,7 +27,7 @@ func (a authorizerImpl) Authorize(host string) (user, pass string, err error) {
 		log.WithFields(logrus.Fields{
 			"host": host,
 			"user": user,
-		}).Info("authorizing registry access")
+		}).Info("authorizing registry access - boom")
 	}()
 
 	res, ok := a[host]
