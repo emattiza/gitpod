@@ -170,6 +170,8 @@ func (proxy *Proxy) reverse(alias string) *httputil.ReverseProxy {
 		// Total hack: we need a place to modify the request before retrying, and this log
 		//             hook seems to be the only place. We need to modify the request, because
 		//             maybe we just added the host authorizer in the previous CheckRetry call.
+		r.Header.Set("X-Forwarded-For", "127.0.0.1")
+
 		err := repo.Auth.Authorize(r.Context(), r)
 		log.WithFields(logrus.Fields{
 			"host":      r.Host,
