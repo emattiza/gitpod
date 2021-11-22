@@ -54,6 +54,7 @@ var proxyCmd = &cobra.Command{
 		}
 
 		log.WithFields(logrus.Fields{
+			"proxyOpts": proxyOpts,
 			"baseref":   baseref,
 			"basetag":   basetag,
 			"targetref": targetref,
