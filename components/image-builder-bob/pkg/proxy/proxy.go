@@ -171,6 +171,11 @@ func (proxy *Proxy) reverse(alias string) *httputil.ReverseProxy {
 		//             hook seems to be the only place. We need to modify the request, because
 		//             maybe we just added the host authorizer in the previous CheckRetry call.
 		err := repo.Auth.Authorize(r.Context(), r)
+		log.WithFields(logrus.Fields{
+			"host":   r.Host,
+			"header": r.Header,
+			"body":   r.Body,
+		}).Info("sje auth payload")
 		if err != nil {
 			log.WithError(err).Error("sje auth err")
 		} else {
