@@ -24,7 +24,7 @@ type authorizerImpl map[string]authConfig
 
 func (a authorizerImpl) Authorize(host string) (user, pass string, err error) {
 	defer func() {
-		log.WithFields(logrus.Fields{
+		log.WithError(err).WithFields(logrus.Fields{
 			"host": host,
 			"user": user,
 			"a":    a,
