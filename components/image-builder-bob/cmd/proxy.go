@@ -5,6 +5,7 @@
 package cmd
 
 import (
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"net/url"
 	"os"
@@ -52,7 +53,18 @@ var proxyCmd = &cobra.Command{
 			targettag = r.Tag()
 		}
 
+		log.WithFields(logrus.Fields{
+			"baseref":   baseref,
+			"basetag":   basetag,
+			"targetref": targetref,
+			"targettag": targettag,
+		}).Info("sje get auth")
+
 		auth := docker.NewDockerAuthorizer(docker.WithAuthCreds(authP.Authorize))
+		log.WithFields(logrus.Fields{
+			"auth": auth,
+		}).Info("sje auth value")
+
 		prx, err := proxy.NewProxy(&url.URL{Host: "localhost:8080", Scheme: "http"}, map[string]proxy.Repo{
 			"base": {
 				Host: reference.Domain(baseref),
@@ -67,6 +79,12 @@ var proxyCmd = &cobra.Command{
 				Auth: auth,
 			},
 		})
+
+		log.WithFields(logrus.Fields{
+			"proxy": prx,
+			"err":   err,
+		}).Info("sje proxy")
+
 		if err != nil {
 			log.Fatal(err)
 		}
