@@ -154,6 +154,7 @@ func (proxy *Proxy) reverse(alias string) *httputil.ReverseProxy {
 			log.WithError(err).Warn("saw error during CheckRetry")
 			return false, err
 		}
+		log.WithField("status code", resp.StatusCode).Info("sje status code")
 		if resp.StatusCode == http.StatusUnauthorized {
 			err := repo.Auth.AddResponses(context.Background(), []*http.Response{resp})
 			if err != nil {
