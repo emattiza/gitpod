@@ -37,6 +37,11 @@ func (a authorizerImpl) Authorize(host string) (user, pass string, err error) {
 	}()
 
 	res, ok := a[host]
+	log.WithFields(logrus.Fields{
+		"a":    a,
+		"host": host,
+		"ok":   ok,
+	}).Info("sje host finding")
 	if !ok {
 		return
 	}
