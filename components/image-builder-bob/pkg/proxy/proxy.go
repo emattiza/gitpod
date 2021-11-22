@@ -108,7 +108,15 @@ func (proxy *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log.WithFields(logrus.Fields{
-		"req":   r,
+		"req": map[string]interface{}{
+			"url":    r.URL,
+			"repo":   repo.Repo,
+			"host":   repo.Host,
+			"tag":    repo.Tag,
+			"rhost":  r.Host,
+			"header": r.Header,
+			"body":   r.Body,
+		},
 		"alias": alias,
 	}).Info("sje request")
 
