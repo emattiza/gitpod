@@ -7,6 +7,7 @@ package proxy
 import (
 	"context"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -106,6 +107,10 @@ func (proxy *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
 		return
 	}
+	log.WithFields(logrus.Fields{
+		"req":   r,
+		"alias": alias,
+	}).Info("sje request")
 
 	reqdbg, _ := httputil.DumpRequest(r, false)
 	log.WithField("req", string(reqdbg)).Info("serving request")
