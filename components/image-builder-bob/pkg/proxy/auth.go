@@ -65,6 +65,8 @@ func (a authorizerImpl) Authorize(host string) (user, pass string, err error) {
 		}).Info("sje 2")
 	}
 
+	log.Info("sje testing if this works")
+
 	return
 }
 
