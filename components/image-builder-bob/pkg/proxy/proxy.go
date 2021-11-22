@@ -185,6 +185,16 @@ func (proxy *Proxy) reverse(alias string) *httputil.ReverseProxy {
 	rp.ModifyResponse = func(r *http.Response) error {
 		// Some registries return a Location header which we must rewrite to still push
 		// through this proxy.
+		log.WithFields(logrus.Fields{
+			"repo":       repo.Repo,
+			"alias":      alias,
+			"header":     r.Header,
+			"host":       proxy.Host.Host,
+			"scheme":     proxy.Host.Scheme,
+			"statuscode": r.StatusCode,
+			"body":       r.Body,
+		}).Info("sje modify response")
+
 		if loc := r.Header.Get("Location"); loc != "" {
 			lurl, err := url.Parse(loc)
 			if err != nil {
