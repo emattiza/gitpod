@@ -144,6 +144,9 @@ func (proxy *Proxy) reverse(alias string) *httputil.ReverseProxy {
 	}
 	rp := httputil.NewSingleHostReverseProxy(&url.URL{Scheme: "https", Host: repo.Host})
 
+	fmt.Println("sje hello world")
+	log.Info("sje oi oi oi")
+
 	client := retryablehttp.NewClient()
 	client.RetryMax = 3
 	client.CheckRetry = func(ctx context.Context, resp *http.Response, err error) (bool, error) {
